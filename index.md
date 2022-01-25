@@ -3,8 +3,6 @@ RNA-Seq I
 Estefania Mancini
 March 2022
 
-yes
-
 # Introduction
 
 The Cancer Genome Atlas (TCGA,

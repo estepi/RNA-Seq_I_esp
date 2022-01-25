@@ -3,12 +3,6 @@ title: "RNA-Seq I"
 author: "Estefania Mancini"
 date: "March 2022"
 output: github_document
-code_folding: hide
-fig_caption: yes
-fig_height: 6
-fig_width: 6
-number_sections: yes
-toc: yes
 ---
 
 ```{r setup, include=FALSE}
