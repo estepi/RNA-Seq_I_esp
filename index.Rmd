@@ -17,9 +17,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduccion a NGS 
 
-* [Dia 1](dia1.md)
+* [Dia 1](dia1.html)
 
-* [Dia 2](dia2.md)
+* [Dia 2](dia2.html)
 
 * [Contribution guidelines for this project](README.md)
 
