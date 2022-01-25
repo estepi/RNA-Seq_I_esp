@@ -3,9 +3,7 @@ title: "RNA-Seq I"
 author: "Estefania Mancini"
 date: "March 2022"
 output:
-  github_document:
-    toc: true
-    toc_depth: 2
+    BiocStyle::html_document
 ---
 
 ```{r setup, include=FALSE}
