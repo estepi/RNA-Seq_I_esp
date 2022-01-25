@@ -1,0 +1,14 @@
+---
+title: "Introduccion NGS"
+author: "Estefania Mancini"
+date: "1/25/2022"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Tecnologias de Seq
+
+
