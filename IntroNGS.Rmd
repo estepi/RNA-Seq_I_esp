@@ -2,7 +2,7 @@
 title: "Introduccion NGS"
 author: "Estefania Mancini"
 date: "1/25/2022"
-output: ioslides_presentation
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
