@@ -20,7 +20,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Introduccion a R (https://estepi.github.io/RNA-Seq_I_esp/dia1).
 
 
-```{r clinical, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
+```{r clinical, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
 cancertype="LUSC"
 ```
 
