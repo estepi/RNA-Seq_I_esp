@@ -5,9 +5,11 @@ March 2022
 
 # Introduccion a NGS
 
-  - \[Dia 1\] (<https://estepi.github.io/RNA-Seq_I_esp/dia1>)
+  - [Dia 1](dia1.md)
 
-  - \[Dia 2\] (<https://estepi.github.io/RNA-Seq_I_esp/dia2>)
+  - [Dia 2](dia2.md)
+
+  - [Contribution guidelines for this project](README.md)
 
 <!-- end list -->
 
