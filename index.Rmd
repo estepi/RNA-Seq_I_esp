@@ -15,9 +15,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduccion a NGS 
 
-* Dia 1 (https://estepi.github.io/RNA-Seq_I_esp/dia1)
+* [Dia 1] (https://estepi.github.io/RNA-Seq_I_esp/dia1)
 
-# Introduccion a R (https://estepi.github.io/RNA-Seq_I_esp/dia1).
+* [Dia 2] (https://estepi.github.io/RNA-Seq_I_esp/dia2)
 
 
 ```{r clinical, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
