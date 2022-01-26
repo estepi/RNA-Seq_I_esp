@@ -1,7 +1,7 @@
 ---
 title: "Control de calidad de archivos fastq"
 author: "Estefania Mancini"
-date: "1/25/2022"
+date: "Marzo 2022"
 output:
     html_document:
     toc: true # table of content true
@@ -14,7 +14,12 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Quality control
+## Control de calidad de secuencias
+
+Utilizaremos el paquete [ShortRead](http://bioconductor.org/packages/release/bioc/html/ShortRead.html)
+
+También hay otras opciones disponibles como:
+[FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
 ```{r ShortRead, echo=TRUE, eval=FALSE}
 library(ShortRead)

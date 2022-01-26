@@ -347,13 +347,15 @@ pre code {
 
 <h1 class="title toc-ignore">Control de calidad de archivos fastq</h1>
 <h4 class="author">Estefania Mancini</h4>
-<h4 class="date">1/25/2022</h4>
+<h4 class="date">Marzo 2022</h4>
 
 </div>
 
 
-<div id="quality-control" class="section level2">
-<h2>Quality control</h2>
+<div id="control-de-calidad-de-secuencias" class="section level2">
+<h2>Control de calidad de secuencias</h2>
+<p>Utilizaremos el paquete <a href="http://bioconductor.org/packages/release/bioc/html/ShortRead.html">ShortRead</a></p>
+<p>También hay otras opciones disponibles como: <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a></p>
 <pre class="r"><code>library(ShortRead)
 setwd(&quot;../data/&quot;)
 fqQC &lt;-qa(&quot;R1.fastq&quot;)
