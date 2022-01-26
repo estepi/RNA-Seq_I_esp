@@ -1,0 +1,33 @@
+---
+title: "Control de calidad de archivos fastq"
+author: "Estefania Mancini"
+date: "1/25/2022"
+output:
+    html_document:
+    toc: true # table of content true
+    toc_depth: 3  # upto three depths of headings (specified by #, ## and ###)
+    number_sections: true  ## if you want number sections at each table header
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Quality control
+
+```{r ShortRead, echo=TRUE, eval=FALSE}
+library(ShortRead)
+setwd("../data/")
+fqQC <-qa("R1.fastq")
+report(fqQC, type="html", dest="fastqQC_R1")
+fqQC2 <-qa("R2.fastq")
+report(fqQC2, type="html", dest="fastqQC_R2")
+```
+
+## Preguntas
+
+* Que podemos observar?
+* Cual es la longitud de los reads
+* Es la calidad de ambos reads similar
+* Hay algun patron de secuencia que nos llame la atencion

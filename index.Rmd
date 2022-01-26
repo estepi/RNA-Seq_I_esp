@@ -14,16 +14,19 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Objetivos
+El objetivo de este curso es brindar los conocimientos elementales para el análisis de datos de RNA-Seq.  Se propone realizar análisis exploratorios de los datos y obtener como resultado final los genes que se consideran diferencialmente expresados en el experimento. 
 
-# Introduccion a NGS 
+# Contenidos
 
-* [Dia 1](dia1.html)
+## Introduccion general
 
-* [Dia 2](dia2.html)
+*  [Fundamentos de las Tecnologías de secuenciación de última generación](dia1.html)
 
-* [Contribution guidelines for this project](README.md)
+* [Repaso R/Bioconductor](dia2.html) 
 
-```{r clinical, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
-cancertype="LUSC"
-```
+## Análisis e interpretación de datos de RNA-Seq usando R/Bioconductor 
 
+* [QC](dia3.html)
+
+* [RNA-Seq](dia4.html)
