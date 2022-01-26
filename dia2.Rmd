@@ -15,8 +15,6 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Introduccion a R 
-
 
 Directorio de trabajo: Informar sobre el directorio de trabajo actual
 
