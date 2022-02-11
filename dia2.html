@@ -373,7 +373,7 @@ search()</code></pre>
 <ul>
 <li>Las funciones mean y median</li>
 </ul>
-<pre class="r"><code>?mean ?meadian</code></pre>
+<pre class="r"><code>?mean ?median</code></pre>
 <p><em>Analice con cuidado los parámetros que son obligatorios y la resolución cuando hay datos faltantes (NA)</em></p>
 <p>Obtenga una lista de todas las funciones en R que contienen la cadena de caracteres <em>test</em> en su nombre.</p>
 <div id="guardar-objetos" class="section level2">
@@ -414,7 +414,6 @@ b &lt;- B - c(-2.5) </code></pre>
 </div>
 <div id="vectores" class="section level2">
 <h2>VECTORES</h2>
-<pre class="r"><code>sqrt()</code></pre>
 <p>Definir un vector numérico <strong>n</strong> como:</p>
 <pre class="r"><code>n &lt;- seq(-2, 1, by = 0.25)</code></pre>
 <p>Obtener el mínimo (min), maximo (max), suma (sum), media (mean) y varianza (var) de n.</p>
@@ -451,7 +450,7 @@ y+z</code></pre>
 <p><em>¿Qué pasa con <strong>z</strong> que tiene diferente longitud?</em></p>
 <p>Uso de valores NA y NaN</p>
 <p>Generar una variable Z:</p>
-<pre class="r"><code>Z &lt;- c(1:3). </code></pre>
+<pre class="r"><code>Z &lt;- c(1:3)</code></pre>
 <p><em>¿Qué se obtiene si intento extraer la 4ta posición de esta variable (vector)? Como determino si una variable tiene valores ausentes?</em></p>
 <ul>
 <li><p>Crear un vector numérico y asignarlo a <strong>x</strong>. Luego ordenar de manera creciente y decreciente y guardarlos en <strong>cx</strong>, <strong>dx</strong>. Usar <em>sort(), order()</em></p></li>
@@ -474,8 +473,8 @@ C &lt;- matrix(a, nrow = 2, ncol = 5, byrow = TRUE)</code></pre>
 XC&lt;-cbind(x1,x2,x3) 
 is.matrix(XC) #chequear la clase del objeto XC</code></pre>
 <p>Repetir el <em>cbind()</em> con:</p>
-<pre class="r"><code>x3&lt;-c(1,2,3,4)  ¿Qué pasa?</code></pre>
-<p>La función <em>rbind()</em> pega sus argumentos por filas. Obtenemos también en este caso un objeto de clase matrix.</p>
+<pre class="r"><code>x3&lt;-c(1,2,3,4) </code></pre>
+<p>¿Qué pasa? La función <em>rbind()</em> pega sus argumentos por filas. Obtenemos también en este caso un objeto de clase matrix.</p>
 <pre class="r"><code>XR&lt;- rbind(x1,x2,x3); is.matrix(XR); print(XR)
 matrix(rep(0,16),nrow=4) # una matriz de ceros de 4x4</code></pre>
 <ul>
