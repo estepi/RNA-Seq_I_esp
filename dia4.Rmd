@@ -79,13 +79,20 @@ targets <-
         ),
         condition = c(rep("CT", 4), rep("KD", 4))
     )
+write.table(targets, "targets.txt", quote = F, sep = "\t")
+
 files = as.character(targets$bam)
+
 reads <- lapply(files,
                 function(x) {
                     aln <- readGAlignments(x)
                 })
 names(reads) <- rownames(targets)
-c14 <- loadDb("chr14.sqlite")
+
+c14 <- makeTxDbFromGFF("chr14.gtf")
+saveDb(c14 ,"chr14.sqlite") 
+#c14 <- loadDb("chr14.sqlite")
+
 feature <- exonsBy(c14, by = "gen")
 hits <-
     lapply(reads, function(x) {
@@ -108,12 +115,12 @@ Antes de empezar armamos un archivo *targets* o *mapping file* donde se detalla 
 targets <- read.table("targets.txt", header = T, row.names = 1)
 ```
 
-Ahora cargaremos la tabla de counts a nivel gen, que está como archivo adjunto **gene.hits.txt**. Especificamos algunas opciones tales como cuales es la colunma que le da nombre a las filas, asi como si los nombres de las columnas. Para saber sobre estas especificaciones puede consultar el help de *read.table*.
+Ahora cargaremos la tabla de counts a nivel gen, que está como archivo adjunto **genes.hits.txt**. Especificamos algunas opciones tales como cuales es la colunma que le da nombre a las filas, asi como si los nombres de las columnas. Para saber sobre estas especificaciones puede consultar el help de *read.table*.
 
 ```{r readt, echo=TRUE, eval=FALSE}
 counts <-
     read.table(
-        "gene.hits.txt",
+        "genes.hits.txt",
         row.names = 1,
         header = T,
         stringsAsFactors = F
@@ -206,6 +213,7 @@ Exploramos la relación entre las réplicas en un gráfico de bajas dimensiones.
 ```{r names, echo=TRUE, eval=FALSE}
 shortNames<-paste(targets$condition, rep(1:4, 2), sep=".")
 targets<-cbind(targets,shortNames)
+dev.off()
 plotMDS(d, labels=targets$shortNames,
 col=c("darkgreen","blue")[factor(targets$condition)])
 ```
