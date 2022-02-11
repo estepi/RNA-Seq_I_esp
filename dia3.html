@@ -365,7 +365,7 @@ pre code {
 <p>Cargamos el paquete al entorno de trabajo. Vamos a analizar la calidad del archivo fastq con una función especial para ello (qa)</p>
 <pre class="r"><code>library(ShortRead)
 setwd(&quot;../data/&quot;)
-fqQC &lt;-qa(&quot;wt_1-short.fq&quot;)</code></pre>
+fqQC &lt;-qa(&quot;R1.fastq&quot;)</code></pre>
 <p>La lectura del archivo se guardará el objeto fqQC. Chequeamos qué tipo de objeto es y qué información nos brinda.</p>
 <pre class="r"><code>fqQC</code></pre>
 <p>El objeto que se generó ya contiene las métricas de calidad. Podemos imprimirlo en un reporte en formato HTML.</p>
@@ -396,13 +396,13 @@ ShortRead:::.plotCycleQuality(perCycle$quality)</code></pre>
 <p>Que se puede agregar fácilmente con la herramienta <a href="https://multiqc.info/">MULTIQC</a></p>
 <p>También podemos realizar el control de calidad en la plataforma <a href="http://galaxyproject.org">GALAXY</a>. Hay que ir a la sección: NGS: QC and manipulation, FastQC Readm Quality reports.</p>
 </div>
-<div id="preguntas-mínimas-juego" class="section level2">
-<h2>Preguntas mínimas (juego)</h2>
+<div id="preguntas-mínimas-juego-10" class="section level2">
+<h2>Preguntas mínimas (juego) (10)</h2>
 <ul>
 <li>Cual es la longitud de los reads</li>
 <li>Es la calidad de ambos reads similar si, mejor en el 1, mejor en el 2</li>
-<li>Hay algun patron de secuencia que nos llame la atencion</li>
-<li>cuantos reads tiene la library 1M, 10M, 100M</li>
+<li>Hay algún patrón de secuencia que nos llame la atención ?</li>
+<li>Cuántos reads tiene la library 1M, 10M, 100M?</li>
 <li>entonces cuantas bases tiene la library</li>
 <li>el numero de readas = numero de spots, numero de enzimas, numero de framentos</li>
 <li>BONUS: Coverage, cual es el coverage de una secuenciacion si…</li>

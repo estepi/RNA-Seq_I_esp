@@ -34,7 +34,7 @@ Cargamos el paquete al entorno de trabajo. Vamos a analizar la calidad del archi
 ```{r ShortRead, echo=TRUE, eval=FALSE}
 library(ShortRead)
 setwd("../data/")
-fqQC <-qa("wt_1-short.fq")
+fqQC <-qa("R1.fastq")
 ```
 
 
@@ -109,12 +109,12 @@ Que se puede agregar fácilmente con la herramienta [MULTIQC](https://multiqc.in
 También podemos realizar el control de calidad en la plataforma [GALAXY](http://galaxyproject.org). Hay que ir a la sección: NGS: QC and manipulation, FastQC Readm Quality reports.
 
 
-## Preguntas mínimas (juego)
+## Preguntas mínimas (juego) (10)
 
 * Cual es la longitud de los reads
 * Es la calidad de ambos reads similar si, mejor en el 1, mejor en el 2
-* Hay algun patron de secuencia que nos llame la atencion
-* cuantos reads tiene la library 1M, 10M, 100M
+* Hay algún patrón de secuencia que nos llame la atención ?
+* Cuántos reads tiene la library 1M, 10M, 100M? 
 * entonces cuantas bases tiene la library 
 * el numero de readas = numero de spots, numero de enzimas, numero de framentos
 * BONUS: Coverage, cual es el coverage de una secuenciacion si...
