@@ -1,139 +1,121 @@
-## ----setup, include=FALSE--------------------------------------------------------------
 knitr::opts_chunk$set(echo = FALSE)
 
 
-## ----counts, echo=TRUE, eval=FALSE-----------------------------------------------------
-## library(RNAseqData.HNRNPC.bam.chr14)
-## library(GenomicRanges)
-## library(GenomicFeatures)
-## library(GenomicAlignments)
-## bamfiles <- RNAseqData.HNRNPC.bam.chr14_BAMFILES
-## targets <-
-##     data.frame(
-##         row.names = names(RNAseqData.HNRNPC.bam.chr14_BAMFILES),
-##         bam = matrix(
-##             unlist(RNAseqData.HNRNPC.bam.chr14_BAMFILES),
-##             ncol = 1,
-##             byrow = TRUE
-##         ),
-##         condition = c(rep("CT", 4), rep("KD", 4))
-##     )
-## files = as.character(targets$bam)
-## reads <- lapply(files,
-##                 function(x) {
-##                     aln <- readGAlignments(x)
-##                 })
-## names(reads) <- rownames(targets)
-## c14 <- loadDb("chr14.sqlite")
-## feature <- exonsBy(c14, by = "gen")
-## hits <-
-##     lapply(reads, function(x) {
-##         countOverlaps(feature, x, ignore.strand = TRUE)
-##     })
-## hits.ul <- do.call(cbind.data.frame, hits)
-## write.table(file = "genes.hits.txt", hits.ul)
-## 
+library(RNAseqData.HNRNPC.bam.chr14)
+?RNAseqData.HNRNPC.bam.chr14
+library(GenomicRanges)
+library(GenomicFeatures)
+library(GenomicAlignments)
+bamfiles <- RNAseqData.HNRNPC.bam.chr14_BAMFILES
+
+targets <-
+     data.frame(
+         row.names = names(RNAseqData.HNRNPC.bam.chr14_BAMFILES),
+         bam = matrix(
+             unlist(RNAseqData.HNRNPC.bam.chr14_BAMFILES),
+             ncol = 1,
+             byrow = TRUE
+),
+         condition = c(rep("CT", 4), rep("KD", 4))
+     )
+
+targets
+write.table(targets, "targets.txt", quote = F, sep = "\t")
+ 
+files = as.character(targets$bam)
+reads <- lapply(files,
+                 function(x) {
+                     aln <- readGAlignments(x)
+                 })
+
+names(reads) <- rownames(targets)
+
+getwd()
 
 
-## ----targets, echo=TRUE, eval=FALSE----------------------------------------------------
-## targets <- read.table("targets.txt", header = T, row.names = 1)
+c14 <- makeTxDbFromGFF("chr14.gtf")
+saveDb(c14 ,"chr14.sqlite") 
+
+#c14 <- loadDb("chr14.sqlite")
+
+feature <- exonsBy(c14, by = "gen")
+ hits <-
+     lapply(reads, function(x) {
+         countOverlaps(feature, x, ignore.strand = TRUE)
+     })
+       
+ hits.ul <- do.call(cbind.data.frame, hits)
+
+write.table(hits.ul, file = "genes.hits.txt" )
+head(hits.ul) 
+
+targets 
+ 
+
+ counts <-
+   read.table(
+         "genes.hits.txt",
+       row.names = 1,
+       header = T,
+         stringsAsFactors = F     )
+
+ targets <- read.table("targets.txt", header = T, row.names = 1)
+
+class(counts)
+dim(counts)
+ head(counts)
 
 
-## ----readt, echo=TRUE, eval=FALSE------------------------------------------------------
-## counts <-
-##     read.table(
-##         "gene.hits.txt",
-##         row.names = 1,
-##         header = T,
-##         stringsAsFactors = F
-##     )
+library(edgeR)
 
 
-## ----descriptive, echo=TRUE, eval=FALSE------------------------------------------------
-## class(counts)
-## dim(counts)
-## head(counts)
+ summary(counts)
+ plot(density(rowMeans(counts)))
 
 
-## ----edgeR, echo=TRUE, eval=FALSE------------------------------------------------------
-## library(edgeR)
+ par(mfrow=c(2,4))
+ apply(counts, 2, boxplot)
 
 
-## ----summary, echo=TRUE, eval=FALSE----------------------------------------------------
-## summary(counts)
-## plot(density(rowMeans(counts)))
+cpms<-cpm(counts)
+keep<-rowSums(cpms>1)>4
 
 
-## ----boxplots, echo=TRUE, eval=FALSE---------------------------------------------------
-## par(mfrow=c(2,4))
-## apply(counts, 2, boxplot)
+dim(counts)
+countsf<-counts[keep,]
+dim(countsf)
 
 
-## ----filtros, echo=TRUE, eval=FALSE----------------------------------------------------
-## cpms<-cpm(counts)
+summary(countsf)
+d<-DGEList(counts=countsf, group=targets$condition)
+d<-calcNormFactors(d)
+shortNames<-paste(targets$condition, rep(1:4, 2), sep=".")
+targets<-cbind(targets,shortNames)
+dev.off()
+plotMDS(d, labels=targets$shortNames,
+col=c("darkgreen","blue")[factor(targets$condition)])
 
 
-## ----keep, echo=TRUE, eval=FALSE-------------------------------------------------------
-## keep<-rowSums(cpms>1)>4
+d<-estimateCommonDisp(d, verbose=TRUE)
+
+d<-estimateTagwiseDisp(d)
+
+plotBCV(d)
 
 
-## ----keep2, echo=TRUE, eval=FALSE------------------------------------------------------
-## dim(counts)
-## countsf<-counts[keep,]
-## dim(countsf)
+de<-exactTest(d, pair=c("CT","KD"))
 
 
-## ----keep3, echo=TRUE, eval=FALSE------------------------------------------------------
-## summary(countsf)
+ tt <- topTags(de, n=nrow(d))
 
 
-## ----DGEList1, echo=TRUE, eval=FALSE---------------------------------------------------
-## d<-DGEList(counts=countsf, group=targets$condition)
+table(tt$table$FDR <0.05)
+hist(tt$table$FDR, breaks=100 )
 
+deg<-rownames(tt)[tt$table$FDR <.1]
 
-## ----calcNormF, echo=TRUE, eval=FALSE--------------------------------------------------
-## d<-calcNormFactors(d)
+plotSmear(d, de.tags=deg)
+abline(h=c(-1,0,1))
 
-
-## ----names, echo=TRUE, eval=FALSE------------------------------------------------------
-## shortNames<-paste(targets$condition, rep(1:4, 2), sep=".")
-## targets<-cbind(targets,shortNames)
-## plotMDS(d, labels=targets$shortNames,
-## col=c("darkgreen","blue")[factor(targets$condition)])
-
-
-## ----names2, echo=TRUE, eval=FALSE-----------------------------------------------------
-## d<-estimateCommonDisp(d, verbose=TRUE)
-
-
-## ----disp, echo=TRUE, eval=FALSE-------------------------------------------------------
-## d<-estimateTagwiseDisp(d)
-
-
-## ----plotBCV, echo=TRUE, eval=FALSE----------------------------------------------------
-## plotBCV(d)
-
-
-## ----exactTest, echo=TRUE, eval=FALSE--------------------------------------------------
-## de<-exactTest(d, pair=c("CT","KD"))
-
-
-## ----toptags, echo=TRUE, eval=FALSE----------------------------------------------------
-## tt <- topTags(de, n=nrow(d))
-
-
-## ----toptags2, echo=TRUE, eval=FALSE---------------------------------------------------
-## table(tt$table$FDR <0.05)
-## hist(tt$table$FDR, breaks=100 )
-
-
-## ----deg, echo=TRUE, eval=FALSE--------------------------------------------------------
-## deg<-rownames(tt)[tt$table$FDR <.1]
-## plotSmear(d, de.tags=deg)
-## abline(h=c(-1,0,1))
-
-
-## ----tt2, echo=TRUE, eval=FALSE--------------------------------------------------------
-## write.table() o write.csv():
-## write.csv(tt$table, file="toptags_edgeR.csv")
+write.csv(tt$table, file="toptags_edgeR.csv")
 

@@ -399,13 +399,20 @@ targets &lt;-
         ),
         condition = c(rep(&quot;CT&quot;, 4), rep(&quot;KD&quot;, 4))
     )
+write.table(targets, &quot;targets.txt&quot;, quote = F, sep = &quot;\t&quot;)
+
 files = as.character(targets$bam)
+
 reads &lt;- lapply(files,
                 function(x) {
                     aln &lt;- readGAlignments(x)
                 })
 names(reads) &lt;- rownames(targets)
-c14 &lt;- loadDb(&quot;chr14.sqlite&quot;)
+
+c14 &lt;- makeTxDbFromGFF(&quot;chr14.gtf&quot;)
+saveDb(c14 ,&quot;chr14.sqlite&quot;) 
+#c14 &lt;- loadDb(&quot;chr14.sqlite&quot;)
+
 feature &lt;- exonsBy(c14, by = &quot;gen&quot;)
 hits &lt;-
     lapply(reads, function(x) {
@@ -420,10 +427,10 @@ write.table(file = &quot;genes.hits.txt&quot;, hits.ul)</code></pre>
 <p>El diseño experimental es una comparación entre 2 condiciones, con 4 réplicas biológicas cada una.</p>
 <p>Antes de empezar armamos un archivo <em>targets</em> o <em>mapping file</em> donde se detalla cada muestra a qué condición corresponde</p>
 <pre class="r"><code>targets &lt;- read.table(&quot;targets.txt&quot;, header = T, row.names = 1)</code></pre>
-<p>Ahora cargaremos la tabla de counts a nivel gen, que está como archivo adjunto <strong>gene.hits.txt</strong>. Especificamos algunas opciones tales como cuales es la colunma que le da nombre a las filas, asi como si los nombres de las columnas. Para saber sobre estas especificaciones puede consultar el help de <em>read.table</em>.</p>
+<p>Ahora cargaremos la tabla de counts a nivel gen, que está como archivo adjunto <strong>genes.hits.txt</strong>. Especificamos algunas opciones tales como cuales es la colunma que le da nombre a las filas, asi como si los nombres de las columnas. Para saber sobre estas especificaciones puede consultar el help de <em>read.table</em>.</p>
 <pre class="r"><code>counts &lt;-
     read.table(
-        &quot;gene.hits.txt&quot;,
+        &quot;genes.hits.txt&quot;,
         row.names = 1,
         header = T,
         stringsAsFactors = F
@@ -466,6 +473,7 @@ dim(countsf)</code></pre>
 <p>Exploramos la relación entre las réplicas en un gráfico de bajas dimensiones. Ante agregamos al objeto targets una columna con un vector ShortNames para representar las muestras:</p>
 <pre class="r"><code>shortNames&lt;-paste(targets$condition, rep(1:4, 2), sep=&quot;.&quot;)
 targets&lt;-cbind(targets,shortNames)
+dev.off()
 plotMDS(d, labels=targets$shortNames,
 col=c(&quot;darkgreen&quot;,&quot;blue&quot;)[factor(targets$condition)])</code></pre>
 <p>Esta función calculará las distancias euclı́deas entre cada para de muestras y representará en un gráfico de 2 dimensiones cómo es la relación entre las muestras. Podemos observar si en el experimento la separación entre condiciones es suficientemente robusta y cómo es la relación entre las réplicas.</p>

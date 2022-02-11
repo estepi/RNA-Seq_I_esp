@@ -30,3 +30,5 @@ El objetivo de este curso es brindar los conocimientos elementales para el anál
 * Dia 3 [QC](dia3.html)
 
 * Dia 3 y Dia 4 [RNA-Seq](dia4.html)
+
+* [Bonus](dia4_bonus.html)
