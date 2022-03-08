@@ -25,7 +25,9 @@ El objetivo de este curso es brindar los conocimientos elementales para el anál
 
 * Dia 2 [Repaso R](dia2.html) 
 
-* [Repaso Bioconductor](dia2_Bioc.html) 
+* Bioc [Repaso Bioconductor](dia2_Bioc.html) 
+
+
 ## Análisis e interpretación de datos de RNA-Seq usando R/Bioconductor 
 
 * Dia 3 [QC](dia3.html)
