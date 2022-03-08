@@ -1,0 +1,34 @@
+unlink('index_cache', recursive = TRUE)
+knit_with_parameters('~/Documents/BioApps/RNA-Seq_I_esp/index.Rmd')
+unlink('index_cache', recursive = TRUE)
+install.packages("bookdown")
+if (!requireNamespace("BiocManager", quietly = TRUE))
+install.packages("BiocManager")
+BiocManager::install("ShortRead")
+library(ShortRead)
+getwd()
+setwd("../data/")
+fqQC <-qa("R1.fastq")
+report(fqQC, type="html", dest="fastqQC_R1")
+fqQC2 <-qa("R2.fastq")
+report(fqQC2, type="html", dest="fastqQC_R2")
+library(knitr)
+purl("dia.Rmd")
+# extract RScript
+getwd()
+purl("dia1.Rmd")
+purl("dia2.Rmd")
+purl("dia3.Rmd")
+purl("dia4.Rmd")
+setwd("dia2");
+sessionInfo()
+search()
+??variance
+?var
+??square
+?sqrt
+??graphics
+?mean
+?meadian
+?median
+savehistory(file="Primera.txt")
