@@ -275,3 +275,26 @@ En nuestro caso observamos el cociente entre cada uno de los genes versus la med
 write.table() o write.csv():
 write.csv(tt$table, file="toptags_edgeR.csv")
 ```
+
+
+#Analizo los mismos datos con DESeq
+
+```{r DESeq, echo=TRUE, eval=FALSE}
+
+library(DESeq)
+cds<-  newCountDataSet(countData=counts, conditions=targets$condition)
+cds<-estimateSizeFactors(cds)
+sizeFactors(cds)
+cdsB<-estimateDispersions(cds, method="blind")
+vsd<-varianceStabilizingTransformation(cdsB)
+p<-plotPCA(vsd)
+#
+cds<-estimateDispersions(cds)
+plotDispEsts(cds)
+res<-nbinomTest(cds, "CT","KD")
+plotMA(res)
+resSig<-res[which(res$padj < 0.1),]
+table(res$padj < 0.1)
+hist(res$pval, breaks=100)
+
+```
