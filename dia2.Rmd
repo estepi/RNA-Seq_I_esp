@@ -1,7 +1,7 @@
 ---
-title: "Introduccion R"
+title: "Repaso R"
 author: "Estefania Mancini"
-date: "Marzo 2022"
+date: "15 de Marzo 2022"
 output:
   html_document: null
   number_sections: yes
@@ -37,25 +37,25 @@ search()
 
 Usar la ayuda para hallar información sobre:
 
-* la varianza de una variable random
+* la varianza de una variable _random_
 
 ```{r help2, eval=FALSE, echo=TRUE}
 ??variance ?var
 ```
 
-* la raiz cuadrada de un número: 
+* la raíz cuadrada de un número: 
 
 ```{r help2b, eval=FALSE, echo=TRUE}
 ??square ?sqrt
 ```
 
-Informacion acerca del paquete *graphics*
+Información acerca del paquete *graphics*
 
 ```{r help3, eval=FALSE, echo=TRUE}
 ??graphics
 ```
 
-* Las funciones mean y median 
+* Las funciones \texttt{mean} y \texttt{median}
 
 ```{r help4, eval=FALSE, echo=TRUE}
 ?mean ?median
@@ -69,36 +69,36 @@ Obtenga una lista de todas las funciones en R que contienen la cadena de caracte
 ##  Guardar objetos
 
 Guarde todos los comandos ejecutados y sus resultados de esta sesión en el archivo
-*Primera.R*. Si no sabe como hacerlo revise la ayuda de la función *save*, *history.save* 
+*Primera.R*. Si no sabe como hacerlo revise la ayuda de la función \texttt{save}, \texttt{savehistory()} 
 
 
 ```{r save, eval=FALSE, echo=TRUE}
-savehistory(file=”Primera.txt”)
+savehistory(file="Primera.Rhistory")
 ```
 
-Si quiero guardar los objetos, hay que hacer:
+Si quiero guardar los objetos:
 
 ```{r save1, eval=FALSE, echo=TRUE}
 save(obj1, file="obj1.RData")
 ```
 
-y luego 
+y luego, podemos cargarlos:
 
 ```{r load, eval=FALSE, echo=TRUE}
 load(file="obj1.RData")
 ```
 
-Salga de **RStudio** sin guardar el área de trabajo *(workspace)* y vuelva a ingresar y abra el script guardado. 
+_Salga de **RStudio** sin guardar el área de trabajo *(workspace)* y vuelva a ingresar y abra el script guardado_
 
 ## Generando datos
 
 Cree el vector **info** que contiene su edad, altura (en cm) y código postal. 
 
 ```{r info, eval=FALSE, echo=TRUE}
-info<-c(29,172,2146)
+info<-c(38,172,2146)
 ```
 
-Obtener el cuadrado de un numero: 
+Obtener el cuadrado de un número: 
 
 ```{r info2, eval=FALSE, echo=TRUE}
 4^2
@@ -170,7 +170,7 @@ seq(1,5,length=7)
 
 Analice con la ayuda la función *seq()* y cree un vector, de longitud 10, con separaciones cada 0.1
 
-*(No subestime esta funcion, es muy útil por ejemplo para generar intervalos para histogramas y etiquetas para plots)*
+*(No subestime esta función, es muy útil por ejemplo para generar intervalos para histogramas y etiquetas para plots)*
 
 La función replicar o repetir *rep()*  permite repetir un valor o una secuencia de valores una cantidad especificada de veces:
 
@@ -208,9 +208,9 @@ z+x
 y+z
 ```
 
-*¿Qué pasa con **z** que tiene diferente longitud?*
+_¿Qué pasa con **z** que tiene diferente longitud?_
 
-Uso de valores NA y NaN
+### Uso de valores NA y NaN
 
 Generar una variable Z: 
 
@@ -218,20 +218,21 @@ Generar una variable Z:
 Z <- c(1:3)
 ```
 
-*¿Qué se obtiene si intento extraer la 4ta posición de esta variable (vector)? Como determino si una variable tiene valores ausentes?*
+_¿Qué se obtiene si intento extraer la 4ta posición de esta variable (vector)? Como determino si una variable tiene valores ausentes?_
 
 
-* Crear un vector numérico y asignarlo a **x**. Luego ordenar de manera creciente y  decreciente  y guardarlos en **cx**, **dx**. Usar *sort(), order()*
+* Crear un vector numérico y asignarlo a **x**. Luego ordenar de manera creciente y  decreciente  y guardarlos en **cx**, **dx**. Usar \textt{sort(), order()}
 
-* Crear un vector numérico **h** aplicar la funcion *prod(h)*
+* Crear un vector numérico **h** aplicar la función \texttt{prod(h)}
 
-* Crear un vector numérico **z** y aplicar la funcion *summary(z)*
+* Crear un vector numérico **z** y aplicar la funcion \textt{summary(z)}
 
-* Concatenar **z** como caracter y aplicar la funcion *summary()*.
+* Concatenar **z** como caracter y aplicar la funcion \texttt{summary()}
 
-* Crear un vector lógico **L** y coercionarlo a valores numéricos usando *as.numeric()* y *as.double()*
+* Crear un vector lógico **L** y coercionarlo a valores numéricos usando \texttt{as.numeric()} y \texttt{as.double()}
 
-* Usar la funcion *paste()* para concatenar z y "es un caracter". No subestimar la funcion *paste*, es muy util por ejemplo para armar nombres de archivos o de variables de forma dinámica
+* Usar la funcion \texttt{paste()} para concatenar z y "es un caracter".
+_No subestimar la funcion \texttt{paste}, es muy útil por ejemplo para armar nombres de archivos o de variables de forma dinámica_
 
 ## Matrices
 
@@ -258,9 +259,9 @@ Repetir el *cbind()* con:
 x3<-c(1,2,3,4) 
 ```
 
- ¿Qué pasa?
-La función *rbind()* pega sus argumentos por filas. Obtenemos también en este caso un
-objeto de clase matrix.
+_¿Qué pasa?_
+
+La función \texttt{rbind()} pega sus argumentos por filas. Obtenemos también en este caso un objeto de clase matrix.
 
 ```{r rbind, eval=FALSE, echo=TRUE}
 XR<- rbind(x1,x2,x3); is.matrix(XR); print(XR)
@@ -274,7 +275,7 @@ matrix(rep(0,16),nrow=4) # una matriz de ceros de 4x4
 
 * Definir una submatriz **M3** igual a M1 exceptuando la toda la fila y columna 5.
 
-* Aplicar la funcion *dim()* a todas las matrices (**M1, M2, M3**)
+* Aplicar la función \textt{dim()} a todas las matrices (**M1, M2, M3**)
 
 ## Listas
 
@@ -284,29 +285,30 @@ Definir un vector factorial y un vector numérico. Construir una lista **L2** co
 
 Combinar las listas **L1** y **L2** en una tercera **L3**.
 
-Aplicar las funcion *class()* y *attributes()* as **L3**  como un todo y a cada uno de sus componentes.
+Aplicar las función \texttt{class()} y \texttt{attributes()} as **L3**  como un todo y a cada uno de sus componentes.
 
 
 ## Objetos
 
-Listar todos los objetos y variables que estan cargados en su sesión actual. 
+* Listar todos los objetos y variables que estén cargados en su sesión actual. 
 
-Remover algunos objetos/variables a su elección
+* Remover algunos objetos/variables a su elección
 
 ## Paquetes
 
-Listar  todos los paquetes instalados y cargados 
+* Listar  todos los paquetes instalados y cargados 
 
-Chequear si están instalados los paquetes: *knitr* y *markdown*. Si es asi, cargarlos. Si no, instalarlos.
+* Comprobar si están instalados los paquetes: \texttt{knitr} y \texttt{markdown}
 
-Quitar los paquetes del entorno 
+* Quitar los paquetes del entorno 
 
-Cargar un paquete de su preferencia y chequear una función que este posea antes y 
-despues de cargarlo. (ejemplo: paquete *limma*, función *VennDiagram*)
+* Cargar un paquete de su preferencia y comprobar una función que este posea antes y 
+después de cargarlo. (ejemplo: paquete \texttt{limma}, función \texttt{VennDiagram})
 
-Instalar el paquete **xpose4** usando el comando *install.packages()*
+* Instalar el paquete **xpose4** usando el comando \texttt{install.packages()}
 
-Datos de paquetes instalados: R contiene muchos conjuntos de datos incorporados al software. Estos datos están guardados como *dataframes*. Para ver la lista de conjuntos de datos tipee *data()*. Se abrirá una ventana en la que se listan los conjuntos de datos disponibles (hay muchos otros en los paquetes escritos por usuarios).
+### Datos de paquetes instalados
+R contiene muchos conjuntos de datos incorporados en la instalación. Estos datos están guardados como **dataframes**. Para ver la lista de conjuntos de datos tipee \texttt{data()}. Se abrirá una ventana en la que se listan los conjuntos de datos disponibles (hay muchos otros en los paquetes escritos por usuarios).
 
 Cargar los datos del paquete **iris** y conocer su clase. Tambien derteminar la clase de los componentes **Sepal.Length** y **Species**. 
 
@@ -323,7 +325,7 @@ Convertir de un tipo de dato a otro
 class(iris); as.matrix(iris); as.list(iris); as.vector(iris); as.vector(as.matrix((iris)))
 ```
 
-Para acceder a las variables individuales en un *dataframe*, se usa un **$** entre el nombre del *dataframe* y el nombre de la columna:
+Para acceder a las variables individuales en un _dataframe_, se usa un **$** entre el nombre del _dataframe_ y el nombre de la columna:
 
 ```{r data, eval=FALSE, echo=TRUE}
 data(trees)
@@ -345,16 +347,13 @@ attributes(tree)
 
 ## Input/Output
 
-Cree un dataframe llamado *cronograma* con las variables: *nombre, días, cantidad de horas semanales*. 
-Genere un archivo de datos utilizando una planilla de cálculo que contenga las variables: *edad, género, cantidad de materias aprobadas de un curso hipotético con 15 alumnos*. 
-Incluya el nombre de las variables en la primera fila. 
-Guárdelo en formato texto (por ejemplo, delimitado por tabulaciones) e
+* Cree un dataframe llamado **cronograma** con las variables: **nombre, días, cantidad de horas semanales**. 
+* Genere un archivo de datos utilizando una planilla de cálculo que contenga las variables: *edad, género, cantidad de materias aprobadas de un curso hipotético con 15 alumnos*. 
+* Incluya el nombre de las variables en la primera fila. 
+* Guárdelo en formato texto (por ejemplo, delimitado por tabulaciones) e
 impórtelo a un data frame del R. 
-Guarde en un data frame llamado *tempacid* las variables **Water.Temp y Acid.Conc.** del dataset **stackloss** de R. 
+* Guarde en un data frame llamado **tempacid** las variables **Water.Temp y Acid.Conc.** del dataset **stackloss** de R. 
 
-Bonus: 
-
-Podriamos armarlo con algun google docs sobre las carreras, edades, origen, etc... de las asistentes, o sobre algun dato que nos interese.
 
 ## Uso de comentarios
 
