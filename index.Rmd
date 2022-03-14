@@ -21,17 +21,23 @@ El objetivo de este curso es brindar los conocimientos elementales para el anál
 
 ## Introduccion general
 
-* Dia 1 [Fundamentos de las Tecnologías de secuenciación de última generación](dia1.html)
+Dia 1 
 
-* Dia 2 [Repaso R](dia2.html) 
+* Fundamentos de las Tecnologías de secuenciación de última generación
+* Introducción R
 
-* Bioc [Repaso Bioconductor](dia2_Bioc.html) 
+ Dia 2 
 
+* [Práctica R](dia2.html) 
+
+* Repaso Bioconductor
+
+* [Práctica QC](dia3.html)
 
 ## Análisis e interpretación de datos de RNA-Seq usando R/Bioconductor 
 
-* Dia 3 [QC](dia3.html)
+Dia 3 y Dia 4 
 
-* Dia 3 y Dia 4 [RNA-Seq](dia4.html)
+* [RNA-Seq](dia4.html)
 
 * [Bonus](dia4_bonus.html)
