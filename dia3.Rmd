@@ -1,7 +1,7 @@
 ---
 title: "Control de calidad de archivos fastq"
 author: "Estefania Mancini"
-date: "Marzo 2022"
+date: "15 de Marzo 2022"
 output:
     html_document:
     toc: true # table of content true
@@ -26,7 +26,7 @@ El primer paso que todo bioinformático que trabaja en NGS y recibe archivos fas
 * la existencia de contaminantes (porque serán secuencias sobrerepresentadas) el tipo de biblioteca que se ha secuenciado (genómico, transcriptómica, amplicones) la calidad promedio de la biblioteca secuenciada En esta práctica vamos a analizar una versión reducida de un archivo fastq que fue bajado de SRA Accession number SRR931761. Cuando bajamos archivos de SRA, los mismos deben ser convertidos a fastq, utilizando una aplicación (fastq dump) que está disponible en SRA toolkit.
 
 
-En primer lugar elegimos el directorio de trabajo y ponemos allı́ el archivo wt-short.fq. 
+En primer lugar elegimos el directorio de trabajo y ponemos allı́ el archivo **wt-short.fq**
 
 Cargamos el paquete al entorno de trabajo. Vamos a analizar la calidad del archivo fastq con una función especial para ello (qa)
 
@@ -52,7 +52,9 @@ TIP: Verificar que el directorio donde se exporta la salida.
 report(fqQC, type="html", dest="fastqQAreport-wt-short")
 ```
 
-Abrir el reporte en un navegador web. TIP: Debajo de cada gráfico se especifican las funciones con las que se han realizado. Podemos hacerlos uno por uno:
+Abrir el reporte en un navegador web. 
+
+* TIP: Debajo de cada gráfico se especifican las funciones con las que se han realizado. Podemos hacerlos uno por uno:
 
 ```{r readCount, echo=TRUE, eval=FALSE}
 ShortRead:::.plotReadCount(fqQC)
@@ -108,13 +110,3 @@ Que se puede agregar fácilmente con la herramienta [MULTIQC](https://multiqc.in
 
 También podemos realizar el control de calidad en la plataforma [GALAXY](http://galaxyproject.org). Hay que ir a la sección: NGS: QC and manipulation, FastQC Readm Quality reports.
 
-
-## Preguntas mínimas (juego) (10)
-
-* Cual es la longitud de los reads
-* Es la calidad de ambos reads similar si, mejor en el 1, mejor en el 2
-* Hay algún patrón de secuencia que nos llame la atención ?
-* Cuántos reads tiene la library 1M, 10M, 100M? 
-* entonces cuantas bases tiene la library 
-* el numero de readas = numero de spots, numero de enzimas, numero de framentos
-* BONUS: Coverage, cual es el coverage de una secuenciacion si...
