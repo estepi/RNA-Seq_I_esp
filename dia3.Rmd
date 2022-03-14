@@ -54,7 +54,7 @@ report(fqQC, type="html", dest="fastqQAreport-wt-short")
 
 Abrir el reporte en un navegador web. 
 
-_ TIP: Debajo de cada gráfico se especifican las funciones con las que se han realizado_
+_TIP: Debajo de cada gráfico se especifican las funciones con las que se han realizado_
 
 Podemos hacerlos uno por uno:
 
@@ -109,6 +109,6 @@ ShortRead:::.plotCycleQuality(perCycle$quality)
 
 ## Otras herramientas
 
-Una de las herramientas más utilizadas es   [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). En la sección de ayuda se puede profundizar sobre las conclusiones. Que se puede agregar fácilmente con la herramienta [MULTIQC](https://multiqc.info/)
+Una de las herramientas más utilizadas es   [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). En la sección de ayuda se puede profundizar sobre las conclusiones. Se puede agregar fácilmente con la herramienta [MULTIQC](https://multiqc.info/) _(ver ejemplo en clase teórica)_
 
 

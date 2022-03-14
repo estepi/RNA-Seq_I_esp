@@ -372,7 +372,7 @@ fqQC &lt;-qa(&quot;R1.fastq&quot;)</code></pre>
 <p><em>TIP: Verificar que el directorio donde se exporta la salida.</em></p>
 <pre class="r"><code>report(fqQC, type=&quot;html&quot;, dest=&quot;fastqQAreport-wt-short&quot;)</code></pre>
 <p>Abrir el reporte en un navegador web.</p>
-<p>_ TIP: Debajo de cada gráfico se especifican las funciones con las que se han realizado_</p>
+<p><em>TIP: Debajo de cada gráfico se especifican las funciones con las que se han realizado</em></p>
 <p>Podemos hacerlos uno por uno:</p>
 <pre class="r"><code>ShortRead:::.plotReadCount(fqQC)</code></pre>
 <p>Este primer gráfico no es muy informativo ya que aquı́ solo estamos analizando el total de lecturas, sin tener en cuenta si han sido filtradas o alineadas. Además estamos mirando 1 sola muestra y sola lane.</p>
@@ -401,7 +401,7 @@ ShortRead:::.plotCycleQuality(perCycle$quality)</code></pre>
 </div>
 <div id="otras-herramientas" class="section level2">
 <h2>Otras herramientas</h2>
-<p>Una de las herramientas más utilizadas es <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a>. En la sección de ayuda se puede profundizar sobre las conclusiones. Que se puede agregar fácilmente con la herramienta <a href="https://multiqc.info/">MULTIQC</a></p>
+<p>Una de las herramientas más utilizadas es <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a>. En la sección de ayuda se puede profundizar sobre las conclusiones. Se puede agregar fácilmente con la herramienta <a href="https://multiqc.info/">MULTIQC</a> <em>(ver ejemplo en clase teórica)</em></p>
 </div>
 
 
