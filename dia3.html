@@ -361,7 +361,7 @@ pre code {
 <li>la existencia de problemas técnicos si las muestras hubieran sido corridas en diferentes calles o aparatos y también con mucha separación en el tiempo. Lo mismo para el primer y segundo fragmento que se secuencia.</li>
 <li>la existencia de contaminantes, el tipo de biblioteca que se ha secuenciado (genómico, transcriptómica, amplicones) la calidad promedio de la biblioteca secuenciada.</li>
 </ul>
-<p>En primer lugar elegimos el directorio de trabajo y ponemos allı́ el archivo <strong>wt-short.fq</strong></p>
+<p>En primer lugar elegimos el directorio de trabajo y ponemos allı́ el archivo <strong>R1.fastq</strong></p>
 <p>Cargamos el paquete al entorno de trabajo. Vamos a analizar la calidad del archivo fastq con una función especial para ello </p>
 <pre class="r"><code>library(ShortRead)
 setwd(&quot;../data/&quot;)
@@ -402,6 +402,10 @@ ShortRead:::.plotCycleQuality(perCycle$quality)</code></pre>
 <div id="otras-herramientas" class="section level2">
 <h2>Otras herramientas</h2>
 <p>Una de las herramientas más utilizadas es <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a>. En la sección de ayuda se puede profundizar sobre las conclusiones. Se puede agregar fácilmente con la herramienta <a href="https://multiqc.info/">MULTIQC</a> <em>(ver ejemplo en clase teórica)</em></p>
+</div>
+<div id="repaso" class="section level2">
+<h2>Repaso</h2>
+<p>Repetir el ejercicio con el <strong>R2.fastq</strong> y completar el [cuestionario] (<a href="https://forms.gle/TCHaSbfaG4BrMik9A" class="uri">https://forms.gle/TCHaSbfaG4BrMik9A</a>)</p>
 </div>
 
 

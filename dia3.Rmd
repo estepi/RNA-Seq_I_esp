@@ -26,7 +26,7 @@ El primer paso que todo bioinformático que trabaja en NGS y recibe archivos fas
 * la existencia de contaminantes, el tipo de biblioteca que se ha secuenciado (genómico, transcriptómica, amplicones) la calidad promedio de la biblioteca secuenciada.
 
 
-En primer lugar elegimos el directorio de trabajo y ponemos allı́ el archivo **wt-short.fq**
+En primer lugar elegimos el directorio de trabajo y ponemos allı́ el archivo **R1.fastq**
 
 Cargamos el paquete al entorno de trabajo. Vamos a analizar la calidad del archivo fastq con una función especial para ello \texttt{qa}
 
@@ -110,5 +110,10 @@ ShortRead:::.plotCycleQuality(perCycle$quality)
 ## Otras herramientas
 
 Una de las herramientas más utilizadas es   [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). En la sección de ayuda se puede profundizar sobre las conclusiones. Se puede agregar fácilmente con la herramienta [MULTIQC](https://multiqc.info/) _(ver ejemplo en clase teórica)_
+
+
+## Repaso
+Repetir el ejercicio con el **R2.fastq** y completar el [cuestionario] (https://forms.gle/TCHaSbfaG4BrMik9A)
+    
 
 
