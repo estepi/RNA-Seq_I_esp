@@ -26,7 +26,7 @@ El primer paso que todo bioinformático que trabaja en NGS y recibe archivos fas
 * la existencia de contaminantes, el tipo de biblioteca que se ha secuenciado (genómico, transcriptómica, amplicones) la calidad promedio de la biblioteca secuenciada.
 
 
-En primer lugar elegimos el directorio de trabajo y ponemos allı́ el archivo **R1.fastq**
+En primer lugar elegimos el directorio de trabajo y ponemos allı́ el archivo **R1.fq.gz**
 
 Cargamos el paquete al entorno de trabajo. Vamos a analizar la calidad del archivo fastq con una función especial para ello \texttt{qa}
 

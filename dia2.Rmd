@@ -365,7 +365,7 @@ h <- cos(9/3) #en este paso calculo el coseno
 
 ## Funciones
 
-Crear una funcion:
+Crear una función:
 
 - **f1**: que devuelva la suma de las medias de 2 vectores. Guardarla en un archivo *f1.R* y cargarlo en una nueva sesion de R usando *source("f1.R")*
 
