@@ -367,10 +367,10 @@ h <- cos(9/3) #en este paso calculo el coseno
 
 Crear una funcion:
 
-**f1**: que devuelva la suma de las medias de 2 vectores. Guardarla en un archivo *f1.R* y cargarlo en una nueva sesion de R usando *source("f1.R")*
+- **f1**: que devuelva la suma de las medias de 2 vectores. Guardarla en un archivo *f1.R* y cargarlo en una nueva sesion de R usando *source("f1.R")*
 
-**f2**: acepte 3 vectores numéricos y devuelva el producto de su longitud dividido por el valor del más largo. Guardarla en un archivo *f2.R* y cargarlo en una nueva sesion de R usando *source("f2.R")*
+- **f2**: acepte 3 vectores numéricos y devuelva el producto de su longitud dividido por el valor del más largo. Guardarla en un archivo *f2.R* y cargarlo en una nueva sesion de R usando *source("f2.R")*
 
-**f3**: Crear una función que acepte un vector y una variable y devuelva el valor de  vector^variable. Si no se provee la variable, se devuelve el valor del vector^2
+- **f3**: Crear una función que acepte un vector y una variable (numéricas) y devuelva el valor de  vector^variable. Si no se provee la variable, se devuelve el valor del vector^2. Comprobar que la variable ingresada es numérica. _Ayuda: usar **if**, **is.numeric()** _
 
 

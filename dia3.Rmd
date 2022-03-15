@@ -34,7 +34,8 @@ Cargamos el paquete al entorno de trabajo. Vamos a analizar la calidad del archi
 ```{r ShortRead, echo=TRUE, eval=FALSE}
 library(ShortRead)
 setwd("../data/")
-fqQC <-qa("R1.fastq")
+countFastq("R1.fq.gz")
+fqQC <-qa("R1.fq.gz")
 ```
 
 
@@ -111,9 +112,12 @@ ShortRead:::.plotCycleQuality(perCycle$quality)
 
 Una de las herramientas más utilizadas es   [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). En la sección de ayuda se puede profundizar sobre las conclusiones. Se puede agregar fácilmente con la herramienta [MULTIQC](https://multiqc.info/) _(ver ejemplo en clase teórica)_
 
+## Vignette
+En la [vignette](http://bioconductor.org/packages/release/bioc/vignettes/ShortRead/inst/doc/Overview.pdf) hay más funcionalidades para explorar.
+
 
 ## Repaso
-Repetir el ejercicio con el **R2.fastq** y completar el [cuestionario] (https://forms.gle/TCHaSbfaG4BrMik9A)
-    
 
+Repetir el ejercicio con el **R2.fq.gz** y completar el [cuestionario](https://forms.gle/TCHaSbfaG4BrMik9A)
+    
 

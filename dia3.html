@@ -365,7 +365,8 @@ pre code {
 <p>Cargamos el paquete al entorno de trabajo. Vamos a analizar la calidad del archivo fastq con una función especial para ello </p>
 <pre class="r"><code>library(ShortRead)
 setwd(&quot;../data/&quot;)
-fqQC &lt;-qa(&quot;R1.fastq&quot;)</code></pre>
+countFastq(&quot;R1.fq.gz&quot;)
+fqQC &lt;-qa(&quot;R1.fq.gz&quot;)</code></pre>
 <p>La lectura del archivo se guardará el objeto . Comprobamos qué tipo de objeto es y qué información nos brinda:</p>
 <pre class="r"><code>fqQC</code></pre>
 <p>El objeto que se generó ya contiene las métricas de calidad. Podemos imprimirlo en un reporte en formato HTML.</p>
@@ -403,9 +404,13 @@ ShortRead:::.plotCycleQuality(perCycle$quality)</code></pre>
 <h2>Otras herramientas</h2>
 <p>Una de las herramientas más utilizadas es <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a>. En la sección de ayuda se puede profundizar sobre las conclusiones. Se puede agregar fácilmente con la herramienta <a href="https://multiqc.info/">MULTIQC</a> <em>(ver ejemplo en clase teórica)</em></p>
 </div>
+<div id="vignette" class="section level2">
+<h2>Vignette</h2>
+<p>En la <a href="http://bioconductor.org/packages/release/bioc/vignettes/ShortRead/inst/doc/Overview.pdf">vignette</a> hay más funcionalidades para explorar.</p>
+</div>
 <div id="repaso" class="section level2">
 <h2>Repaso</h2>
-<p>Repetir el ejercicio con el <strong>R2.fastq</strong> y completar el [cuestionario] (<a href="https://forms.gle/TCHaSbfaG4BrMik9A" class="uri">https://forms.gle/TCHaSbfaG4BrMik9A</a>)</p>
+<p>Repetir el ejercicio con el <strong>R2.fq.gz</strong> y completar el <a href="https://forms.gle/TCHaSbfaG4BrMik9A">cuestionario</a></p>
 </div>
 
 

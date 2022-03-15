@@ -1,12 +1,14 @@
-## ----setup, include=FALSE--------------------------------------------------------------
-knitr::opts_chunk$set(echo = FALSE)
 
 library(ShortRead)
+getwd()
+setwd("~/Documents/BioApps/data/")
 
-setwd("../data/")
-fqQC <-qa("R1.fastq")
 fqQC
-report(fqQC, type="html", dest="fastqQAreport-wt-short")
+countFastq("R1.fq.gz")
+fq <- readFastq("R1.fq.gz")
+
+fqQC <-qa("R1.fq.gz")
+report(fqQC, type="html", dest="fastqQAreport-wt-short1")
 ShortRead:::.plotReadCount(fqQC)
 ShortRead:::.plotNucleotideCount(fqQC)
 df <- fqQC[["readQualityScore"]]
