@@ -242,6 +242,7 @@ if (window.hljs) {
 
 
 
+
 <style type="text/css">
 .main-container {
   max-width: 940px;
@@ -262,6 +263,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -358,11 +362,11 @@ pre code {
 <li><p><a href="http://bioconductor.org/packages/release/bioc/html/edgeR.html">edgeR</a></p></li>
 <li><p><a href="http://bioconductor.org/packages/release/bioc/html/DESeq2.html">DESeq2</a></p></li>
 <li><p><a href="http://bioconductor.org/packages/release/data/experiment/html/RNAseqData.HNRNPC.bam.chr14.html">RNAseqData.HNRNPC.bam.chr14</a></p></li>
-<li><p>[GenomicRanges]</p></li>
-<li><p>[GenomicFeatures]</p></li>
-<li><p>[GenomicAlignments]</p></li>
-<li><p>[ggplot2]</p></li>
-<li><p>[pheatmap]</p></li>
+<li><p><a href="http://bioconductor.org/packages/release/bioc/html/GenomicRanges.html">GenomicRanges</a></p></li>
+<li><p><a href="http://bioconductor.org/packages/release/bioc/html/GenomicFeatures.html">GenomicFeatures</a></p></li>
+<li><p><a href="http://bioconductor.org/packages/release/bioc/html/GenomicAlignments.html">GenomicAlignments</a></p></li>
+<li><p><a href="https://cran.r-project.org/">ggplot2</a></p></li>
+<li><p><a href="https://cran.r-project.org/">pheatmap</a></p></li>
 </ul>
 </div>
 <div id="análisis-de-un-experimento-de-rna-seq" class="section level1">
@@ -381,8 +385,8 @@ pre code {
 <div id="tabla-de-counts" class="section level2">
 <h2>Tabla de counts</h2>
 <p>Luego del alineamiento hay que contar cuántas lecturas han caı́do en cada región de interés y dependerá nuevamente de nuestra pregunta biológica y de la referencia contra la que hayamos decidido alinear.</p>
-<p>Hay 2 modelos de trabajo más relevantes: 1) los denominados çount based models 2) los denominados isoform resolution models</p>
-<p>En nuestro caso exploraremos los resultados utilizando el paquete de R edegR que aplica para el modelo <strong>count base</strong>.</p>
+<p>Hay 2 modelos de trabajo más relevantes: 1) los denominados <em>count based models</em> 2) los denominados <em>isoform resolution models</em></p>
+<p>En nuestro caso exploraremos los resultados utilizando el paquete de R <strong>edegR</strong> que aplica para el modelo <strong>count based</strong>.</p>
 <p>Por cuestiones de tiempo el paso del armado de las tablas ya fue resuelto ejecutando los siguientes comandos:</p>
 <pre class="r"><code>library(RNAseqData.HNRNPC.bam.chr14)
 library(GenomicRanges)
@@ -411,7 +415,6 @@ names(reads) &lt;- rownames(targets)
 
 c14 &lt;- makeTxDbFromGFF(&quot;chr14.gtf&quot;)
 saveDb(c14 ,&quot;chr14.sqlite&quot;) 
-#c14 &lt;- loadDb(&quot;chr14.sqlite&quot;)
 
 feature &lt;- exonsBy(c14, by = &quot;gen&quot;)
 hits &lt;-
@@ -424,10 +427,10 @@ write.table(file = &quot;genes.hits.txt&quot;, hits.ul)</code></pre>
 <div id="detección-de-genes-diferencialmente-expresados" class="section level2">
 <h2>Detección de genes diferencialmente expresados</h2>
 <p>Una vez que tenemos las tablas de counts, por el método que hayamos elegido, hay que realizar el análisis de los datos para buscar aquellos genes que se hayan comportado diferente en las condicones en estudio. En este caso, analizaremos datos de un trabajo cuyo objetivo es analizar el impacto sobre la remodelación del transcriptoma ante el silenciamiento de una proteı́na del spliceosoma (hnRNPC).</p>
-<p>El diseño experimental es una comparación entre 2 condiciones, con 4 réplicas biológicas cada una.</p>
+<p>El diseño experimental es una comparación entre <strong>2 condiciones</strong>, con <strong>4 réplicas</strong> biológicas cada una.</p>
 <p>Antes de empezar armamos un archivo <em>targets</em> o <em>mapping file</em> donde se detalla cada muestra a qué condición corresponde</p>
 <pre class="r"><code>targets &lt;- read.table(&quot;targets.txt&quot;, header = T, row.names = 1)</code></pre>
-<p>Ahora cargaremos la tabla de counts a nivel gen, que está como archivo adjunto <strong>genes.hits.txt</strong>. Especificamos algunas opciones tales como cuales es la colunma que le da nombre a las filas, asi como si los nombres de las columnas. Para saber sobre estas especificaciones puede consultar el help de <em>read.table</em>.</p>
+<p>Ahora cargaremos la tabla de counts a nivel gen. Especificamos algunas opciones tales como cuales es la colunma que le da nombre a las filas, asi como si los nombres de las columnas. Para saber sobre estas especificaciones puede consultar el help de <em>read.table</em>.</p>
 <pre class="r"><code>counts &lt;-
     read.table(
         &quot;genes.hits.txt&quot;,
@@ -498,22 +501,6 @@ abline(h=c(-1,0,1))</code></pre>
 <p>En nuestro caso observamos el cociente entre cada uno de los genes versus la media de expresion de cada gen (en cpm). ¿Qué observamos? Muchos genes se encuentran sobre la región central, significa que no han cambiado como era esperable. El corte de pvalue y logFC es arbitrario y dependerá del experimento que estemos analizando. Recordar que en el vector deg se han guardado los nombres de los genes que consideramos diferencialmente expresados con nuestro criterio. Para exportar los datos a un archivo en formato tabular, simplemente imprimo con el comando:</p>
 <pre class="r"><code>write.table() o write.csv():
 write.csv(tt$table, file=&quot;toptags_edgeR.csv&quot;)</code></pre>
-<p>#Analizo los mismos datos con DESeq</p>
-<pre class="r"><code>library(DESeq)
-cds&lt;-  newCountDataSet(countData=counts, conditions=targets$condition)
-cds&lt;-estimateSizeFactors(cds)
-sizeFactors(cds)
-cdsB&lt;-estimateDispersions(cds, method=&quot;blind&quot;)
-vsd&lt;-varianceStabilizingTransformation(cdsB)
-p&lt;-plotPCA(vsd)
-#
-cds&lt;-estimateDispersions(cds)
-plotDispEsts(cds)
-res&lt;-nbinomTest(cds, &quot;CT&quot;,&quot;KD&quot;)
-plotMA(res)
-resSig&lt;-res[which(res$padj &lt; 0.1),]
-table(res$padj &lt; 0.1)
-hist(res$pval, breaks=100)</code></pre>
 </div>
 </div>
 
