@@ -33,7 +33,7 @@ names(reads) <- rownames(targets)
 getwd()
 
 
-c14 <- makeTxDbFromGFF("chr14.gtf")
+c14 <- makeTxDbFromGFF("../data/chr14.gtf")
 saveDb(c14 ,"chr14.sqlite") 
 
 #c14 <- loadDb("chr14.sqlite")
@@ -59,11 +59,15 @@ targets
        header = T,
          stringsAsFactors = F     )
 
- targets <- read.table("targets.txt", header = T, row.names = 1)
+ class(counts)
+ dim(counts)
+ head(counts)
+ 
+targets <- read.table("../data/targets.txt", header = T, row.names = 1)
 
 class(counts)
 dim(counts)
- head(counts)
+head(counts)
 
 
 library(edgeR)
@@ -89,6 +93,7 @@ dim(countsf)
 summary(countsf)
 d<-DGEList(counts=countsf, group=targets$condition)
 d<-calcNormFactors(d)
+d
 shortNames<-paste(targets$condition, rep(1:4, 2), sep=".")
 targets<-cbind(targets,shortNames)
 dev.off()
@@ -119,3 +124,23 @@ abline(h=c(-1,0,1))
 
 write.csv(tt$table, file="toptags_edgeR.csv")
 
+if (!require("BiocManager", quietly = TRUE))
+   install.packages("BiocManager")
+
+BiocManager::install("DESeq2")
+
+library(DESeq2)
+cds<-  newCountDataSet(countData=counts, conditions=targets$condition)
+cds<-estimateSizeFactors(cds)
+sizeFactors(cds)
+cdsB<-estimateDispersions(cds, method="blind")
+vsd<-varianceStabilizingTransformation(cdsB)
+p<-plotPCA(vsd)
+#
+cds<-estimateDispersions(cds)
+plotDispEsts(cds)
+res<-nbinomTest(cds, "CT","KD")
+plotMA(res)
+resSig<-res[which(res$padj < 0.1),]
+table(res$padj < 0.1)
+hist(res$pval, breaks=100)

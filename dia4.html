@@ -498,6 +498,22 @@ abline(h=c(-1,0,1))</code></pre>
 <p>En nuestro caso observamos el cociente entre cada uno de los genes versus la media de expresion de cada gen (en cpm). ¿Qué observamos? Muchos genes se encuentran sobre la región central, significa que no han cambiado como era esperable. El corte de pvalue y logFC es arbitrario y dependerá del experimento que estemos analizando. Recordar que en el vector deg se han guardado los nombres de los genes que consideramos diferencialmente expresados con nuestro criterio. Para exportar los datos a un archivo en formato tabular, simplemente imprimo con el comando:</p>
 <pre class="r"><code>write.table() o write.csv():
 write.csv(tt$table, file=&quot;toptags_edgeR.csv&quot;)</code></pre>
+<p>#Analizo los mismos datos con DESeq</p>
+<pre class="r"><code>library(DESeq)
+cds&lt;-  newCountDataSet(countData=counts, conditions=targets$condition)
+cds&lt;-estimateSizeFactors(cds)
+sizeFactors(cds)
+cdsB&lt;-estimateDispersions(cds, method=&quot;blind&quot;)
+vsd&lt;-varianceStabilizingTransformation(cdsB)
+p&lt;-plotPCA(vsd)
+#
+cds&lt;-estimateDispersions(cds)
+plotDispEsts(cds)
+res&lt;-nbinomTest(cds, &quot;CT&quot;,&quot;KD&quot;)
+plotMA(res)
+resSig&lt;-res[which(res$padj &lt; 0.1),]
+table(res$padj &lt; 0.1)
+hist(res$pval, breaks=100)</code></pre>
 </div>
 </div>
 
