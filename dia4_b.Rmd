@@ -1,0 +1,93 @@
+---
+title: "Análisis de datos de RNA-Seq"
+author: "Estefania Mancini"
+date: "Marzo 2022"
+output:
+    html_document:
+    toc: true # table of content true
+    toc_depth: 3  # upto three depths of headings (specified by #, ## and ###)
+    number_sections: true  ## if you want number sections at each table header
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Utilizaremos los siguientes  paquetes
+
+* [edgeR](http://bioconductor.org/packages/release/bioc/html/edgeR.html)
+
+* [DESeq2](http://bioconductor.org/packages/release/bioc/html/DESeq2.html)
+
+* [RNAseqData.HNRNPC.bam.chr14](http://bioconductor.org/packages/release/data/experiment/html/RNAseqData.HNRNPC.bam.chr14.html)
+
+* [GenomicRanges](http://bioconductor.org/packages/release/bioc/html/GenomicRanges.html)
+
+* [GenomicFeatures](http://bioconductor.org/packages/release/bioc/html/GenomicFeatures.html)
+
+* [GenomicAlignments](http://bioconductor.org/packages/release/bioc/html/GenomicAlignments.html)
+
+* [ggplot2](https://cran.r-project.org/)
+
+* [pheatmap](https://cran.r-project.org/)
+
+# Análisis de un experimento de RNA-Seq
+
+## Detección de genes diferencialmente expresados
+
+Una vez que tenemos las tablas de counts, por el método que hayamos elegido, hay que realizar el análisis de los datos para buscar aquellos genes que se hayan comportado diferente en las condicones en estudio. En este caso, analizaremos datos de un trabajo cuyo objetivo es analizar el impacto sobre la remodelación del transcriptoma ante el silenciamiento de una proteı́na del spliceosoma (hnRNPC).
+
+El diseño experimental es una comparación entre **2 condiciones**, con **4
+réplicas** biológicas cada una.
+
+Antes de empezar armamos un archivo *targets* o *mapping file* donde se detalla cada muestra a qué condición corresponde 
+
+```{r targets, echo=TRUE, eval=FALSE}
+targets <- read.table("targets.txt", header = T, row.names = 1)
+```
+
+Ahora cargaremos la tabla de counts a nivel gen. Especificamos algunas opciones tales como cuales es la colunma que le da nombre a las filas, asi como si los nombres de las columnas. Para saber sobre estas especificaciones puede consultar el help de *read.table*.
+
+```{r readt, echo=TRUE, eval=FALSE}
+counts <-
+    read.table(
+        "genes.hits.txt",
+        row.names = 1,
+        header = T,
+        stringsAsFactors = F
+    )
+```
+
+¿Qué tipo de objeto es counts? ¿Qué dimensiones tiene? ¿Cómo luce?
+
+```{r descriptive, echo=TRUE, eval=FALSE}
+class(counts)
+dim(counts)
+head(counts)
+```
+
+
+Cargamos al entorno el paquete de bioconductor con el que vamos a realizar nuestro análisis en busca de genes diferencialmente expresdos:
+
+
+#Analizo los mismos datos con DESeq
+
+```{r DESeq, echo=TRUE, eval=FALSE}
+
+library(DESeq)
+cds<-  newCountDataSet(countData=counts, conditions=targets$condition)
+cds<-estimateSizeFactors(cds)
+sizeFactors(cds)
+cdsB<-estimateDispersions(cds, method="blind")
+vsd<-varianceStabilizingTransformation(cdsB)
+p<-plotPCA(vsd)
+#
+cds<-estimateDispersions(cds)
+plotDispEsts(cds)
+res<-nbinomTest(cds, "CT","KD")
+plotMA(res)
+resSig<-res[which(res$padj < 0.1),]
+table(res$padj < 0.1)
+hist(res$pval, breaks=100)
+```
