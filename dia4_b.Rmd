@@ -34,60 +34,110 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Análisis de un experimento de RNA-Seq
 
-## Detección de genes diferencialmente expresados
+## Detección de genes diferencialmente expresados usndo DESeq2
 
-Una vez que tenemos las tablas de counts, por el método que hayamos elegido, hay que realizar el análisis de los datos para buscar aquellos genes que se hayan comportado diferente en las condicones en estudio. En este caso, analizaremos datos de un trabajo cuyo objetivo es analizar el impacto sobre la remodelación del transcriptoma ante el silenciamiento de una proteı́na del spliceosoma (hnRNPC).
-
-El diseño experimental es una comparación entre **2 condiciones**, con **4
-réplicas** biológicas cada una.
-
-Antes de empezar armamos un archivo *targets* o *mapping file* donde se detalla cada muestra a qué condición corresponde 
-
-```{r targets, echo=TRUE, eval=FALSE}
+```{r targets, echo=TRUE, eval=TRUE}
+setwd("~/Documents/BioApps/data/")
 targets <- read.table("targets.txt", header = T, row.names = 1)
 ```
 
-Ahora cargaremos la tabla de counts a nivel gen. Especificamos algunas opciones tales como cuales es la colunma que le da nombre a las filas, asi como si los nombres de las columnas. Para saber sobre estas especificaciones puede consultar el help de *read.table*.
+Leo la tabla de counts:
 
-```{r readt, echo=TRUE, eval=FALSE}
-counts <-
-    read.table(
-        "genes.hits.txt",
-        row.names = 1,
-        header = T,
-        stringsAsFactors = F
-    )
+```{r counts, echo=TRUE, eval=TRUE}
+setwd("~/Documents/BioApps/data/")
+counts <-  read.table( "genes.hits.txt",   
+                       row.names = 1, header = T, stringsAsFactors = F)
 ```
 
 ¿Qué tipo de objeto es counts? ¿Qué dimensiones tiene? ¿Cómo luce?
 
-```{r descriptive, echo=TRUE, eval=FALSE}
+```{r descriptive, echo=TRUE, eval=TRUE}
 class(counts)
 dim(counts)
 head(counts)
 ```
 
-
 Cargamos al entorno el paquete de bioconductor con el que vamos a realizar nuestro análisis en busca de genes diferencialmente expresdos:
 
+# Analizo los mismos datos con DESeq
 
-#Analizo los mismos datos con DESeq
+Tenemos que preparar unos objetos especiales para trabajar con DESeq:
 
-```{r DESeq, echo=TRUE, eval=FALSE}
+```{r DESeq, echo=TRUE, eval=TRUE}
+library(DESeq2)
 
-library(DESeq)
-cds<-  newCountDataSet(countData=counts, conditions=targets$condition)
-cds<-estimateSizeFactors(cds)
-sizeFactors(cds)
-cdsB<-estimateDispersions(cds, method="blind")
-vsd<-varianceStabilizingTransformation(cdsB)
-p<-plotPCA(vsd)
-#
-cds<-estimateDispersions(cds)
-plotDispEsts(cds)
-res<-nbinomTest(cds, "CT","KD")
-plotMA(res)
-resSig<-res[which(res$padj < 0.1),]
-table(res$padj < 0.1)
-hist(res$pval, breaks=100)
+coldata <- data.frame(sample=rownames(targets),condition=targets$condition)
+coldata$condition <- factor(coldata$condition)
+coldata$type <- rep("SE")
+condition <- factor(targets$condition)
+
 ```
+
+Ahora sí armamos un objeto DESeq:
+
+```{r DESeqI, echo=TRUE, eval=TRUE}
+
+dds <- DESeqDataSetFromMatrix(countData = counts,
+                              design   = ~condition,
+                              colData = coldata)
+dds
+```
+
+## Estimación de la expresión diferencial _(en modo resumido)_
+
+```{r DE, echo=TRUE, eval=TRUE}
+dds <- DESeq(dds)
+resultsNames(dds) 
+res <- results(dds)
+res
+```
+
+El objeto ya tiene todos los coeficientes calculados
+
+```{r orderDE, echo=TRUE, eval=TRUE}
+resOrdered <- res[order(res$pvalue),]
+summary(res)
+```
+
+# Vulcano Plot
+Vamos a armar el objeto para visualizar los cambios:
+
+```{r orderDE2, echo=TRUE, eval=TRUE}
+y <-as.data.frame(res)
+resOrdered <- data.frame(res[order(abs(res$log2FoldChange), decreasing = T),][1:10,])
+resOrdered
+```
+
+Graficamos:
+
+```{r vulcanoDE, echo=TRUE, eval=TRUE, warning=FALSE}
+library(ggplot2)
+library(ggrepel)
+y$gene_color <- rep("grey", nrow(y))
+y$gene_color[y$log2FoldChange>1] <-"red"
+y$gene_color[y$log2FoldChange< (-1)]<-"green"
+y$imp_genes<-NA
+ii <- match(rownames(resOrdered), rownames(y))
+y$imp_genes[ii]<-rownames(y)[ii]
+
+ggplot(y, aes(x=log2FoldChange,
+              y=-log10(padj))) +
+  geom_point(aes(col=gene_color), cex= 1.2) +
+  scale_color_manual(values=c("dark green","dark grey", "dark red")) +
+  labs(title="DEG", x="log2(FC)", y="-log10(FDR)") +
+  geom_vline(xintercept= c(-1, 1), colour= 'black', linetype= 'dashed') +
+  geom_hline(yintercept= 1.30103, colour= 'black', linetype= 'dashed') +
+  theme_minimal()+
+  theme(legend.position = "none",
+        plot.title = element_text(size = 12, face="italic", hjust=0.4),
+        axis.title.x = element_text(color = "black", size=12, hjust = 0.4),
+        axis.title.y = element_text(size =12, hjust = 0.5)) +
+  geom_text_repel(data=y,
+                  aes(x=log2FoldChange, y=-log10(padj)),
+                  label =y$imp_genes,
+                  box.padding = unit(0.25, "lines"),
+                  hjust =1,
+                  max.overlaps = 50)
+```
+
+
