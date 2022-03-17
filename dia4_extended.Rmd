@@ -117,6 +117,7 @@ targets <- read.table("targets.txt", header = T, row.names = 1)
 Ahora cargaremos la tabla de counts a nivel gen. Especificamos algunas opciones tales como cuál es la colunma que le da nombre a las filas _(row.names = 1)_, así como si los nombres de las columnas. Para saber sobre estas especificaciones puede consultar el help de *read.table*.
 
 ```{r readt, echo=TRUE, eval=TRUE}
+setwd("~/Documents/BioApps/data/")
 counts <-
     read.table(
         "genes.hits.txt",
@@ -162,8 +163,7 @@ rmeans$color<-rep("gene", nrow(rmeans))
  geom_density()+
   theme_classic()+
   labs(title="Read density")
- 
- ```
+```
  
 También podemos explorar usando boxplots de cada una de las muestras para ir conociendo nuestros datos:
 
@@ -224,7 +224,6 @@ _Importante: Hay que chequear que el vector con las condiciones o grupo, coincid
 ```{r DGEList1, echo=TRUE, eval=TRUE}
 d<-DGEList(counts=countsf, group=targets$condition)
 str(d)
-
 ```
 
 Exploremos el objeto. Es un objeto de tipo _lista_, pero propia de **edgeR**. Cada uno de los componentes en este caso se denomina slot. 
@@ -353,7 +352,7 @@ abline(h=c(-1,0,1))
 
 ```{r degGGPLOT, echo=TRUE, eval=TRUE, warning=FALSE}
 y <-tt$table
-tt10 <- topTags(de)
+tt10 <- topTags(de, n=20)
 
 y$gene_color <- rep("grey", nrow(y))
 y$gene_color[y$logFC>1] <-"red"   

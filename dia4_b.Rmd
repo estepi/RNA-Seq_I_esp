@@ -57,13 +57,9 @@ dim(counts)
 head(counts)
 ```
 
-Cargamos al entorno el paquete de bioconductor con el que vamos a realizar nuestro análisis en busca de genes diferencialmente expresdos:
+Cargamos al entorno el paquete de bioconductor con el que vamos a realizar nuestro análisis en busca de genes diferencialmente expresdos. Tenemos que preparar unos objetos especiales para trabajar con DESeq:
 
-# Analizo los mismos datos con DESeq
-
-Tenemos que preparar unos objetos especiales para trabajar con DESeq:
-
-```{r DESeq, echo=TRUE, eval=TRUE}
+```{r DESeq, echo=TRUE, eval=TRUE, message=FALSE}
 library(DESeq2)
 
 coldata <- data.frame(sample=rownames(targets),condition=targets$condition)
@@ -73,7 +69,7 @@ condition <- factor(targets$condition)
 
 ```
 
-Ahora sí armamos un objeto DESeq:
+Ahora sí armamos un objeto DESeq2:
 
 ```{r DESeqI, echo=TRUE, eval=TRUE}
 
@@ -104,13 +100,14 @@ Vamos a armar el objeto para visualizar los cambios:
 
 ```{r orderDE2, echo=TRUE, eval=TRUE}
 y <-as.data.frame(res)
-resOrdered <- data.frame(res[order(abs(res$log2FoldChange), decreasing = T),][1:10,])
-resOrdered
+#resOrdered <- data.frame(res[order(abs(res$log2FoldChange), decreasing = T),][1:20,])
+resOrdered <- data.frame(res[order(abs(res$padj)),][1:20,])
+head(resOrdered)
 ```
 
 Graficamos:
 
-```{r vulcanoDE, echo=TRUE, eval=TRUE, warning=FALSE}
+```{r vulcanoDE, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 library(ggplot2)
 library(ggrepel)
 y$gene_color <- rep("grey", nrow(y))
