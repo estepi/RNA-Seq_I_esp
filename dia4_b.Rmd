@@ -92,7 +92,6 @@ El objeto ya tiene todos los coeficientes calculados
 
 ```{r orderDE, echo=TRUE, eval=TRUE}
 resOrdered <- res[order(res$pvalue),]
-summary(res)
 ```
 
 # Vulcano Plot
@@ -138,3 +137,8 @@ ggplot(y, aes(x=log2FoldChange,
 ```
 
 
+Exportamos los resultados en formato tabular, para futuros análisis:
+```{r tt2, echo=TRUE, eval=FALSE}
+write.table() o write.csv():
+write.csv(res, file="res_DESeq2.csv")
+```

@@ -386,7 +386,7 @@ ggplot(y, aes(x=logFC, y=-log10(FDR))) +
 Exportamos los resultados en formato tabular, para futuros análisis:
 ```{r tt2, echo=TRUE, eval=FALSE}
 write.table() o write.csv():
-write.csv(tt$table, file="toptags_edgeR.csv")
+write.csv(tt$table, file="red_edgeR.csv")
 ```
 
 
