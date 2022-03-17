@@ -39,7 +39,7 @@ Dia 1
 Dia 3 y Dia 4 
 
 * [RNA-Seq I](dia4.html) 
-* [RNA-Seq II](dia4_extemded.html)
+* [RNA-Seq II](dia4_extended.html)
 * [RNA-Seq II DESeq2](dia4_b.html)
 
 
